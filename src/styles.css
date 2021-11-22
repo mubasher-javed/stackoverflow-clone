@@ -9,6 +9,9 @@ body {
   font-family: Roboto, "Helvetica Neue", sans-serif;
 }
 
+/* * {
+  outline: 1px solid red;
+} */
 .logo {
   height: 4rem;
   width: 4rem;
@@ -43,4 +46,11 @@ body {
 
 .pointer {
   cursor: pointer;
+}
+
+.ellipsis {
+  white-space: nowrap;
+  width: 90ch;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }

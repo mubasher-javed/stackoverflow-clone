@@ -1,0 +1,12 @@
+.clr-lightGray {
+  color: rgb(106, 115, 124);
+}
+
+.counter-font {
+  font-size: 1.4rem;
+}
+
+.btn-tag {
+  line-height: 0.9;
+  font-size: smaller;
+}

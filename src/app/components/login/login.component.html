@@ -32,7 +32,11 @@
             ></path>
           </svg>
         </div>
-        <form autocomplete="off">
+        <form
+          [formGroup]="loginForm"
+          #form="ngForm"
+          (ngSubmit)="handleSubmit()"
+        >
           <div class="form-group">
             <label for="email">Email <span class="text-danger">*</span></label>
             <input
@@ -41,6 +45,7 @@
               type="email"
               required
               name="email"
+              formControlName="email"
             />
           </div>
           <div class="form-group">
@@ -52,10 +57,18 @@
               class="form-control"
               type="password"
               name="password"
+              formControlName="password"
             />
           </div>
+          <div class="text-danger" *ngIf="form.submitted">
+            {{ loginForm.get("email")?.errors?.serverError }}
+          </div>
 
-          <button class="btn btn-block btn-login mt-4" type="submit">
+          <button
+            class="btn btn-block btn-login mt-4"
+            type="submit"
+            [disabled]="!loginForm.valid"
+          >
             Login
           </button>
         </form>
