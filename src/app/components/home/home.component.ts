@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { QuestionResponse } from 'src/app/interfaces/question.interface';
+import { QuestionService } from 'src/app/services/question.service';
 
 @Component({
   selector: 'app-home',
@@ -6,7 +8,13 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./home.component.css'],
 })
 export class HomeComponent implements OnInit {
-  constructor() {}
+  allQuestions: QuestionResponse[] = [];
 
-  ngOnInit(): void {}
+  constructor(private questionService: QuestionService) {}
+
+  ngOnInit(): void {
+    this.questionService.listQuestion().subscribe((questions) => {
+      this.allQuestions = questions;
+    });
+  }
 }

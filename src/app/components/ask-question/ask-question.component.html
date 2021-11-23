@@ -1,0 +1,84 @@
+<div
+  class="ask-question min-vh-100 bg-light d-flex flex-column align-items-center"
+>
+  <!-- change this form into angular reactive forms -->
+  <div class="w-75 d-flex">
+    <h1 class="ask-question__heading align-self-end mb-0 position-relative">
+      Ask a public question
+    </h1>
+    <img
+      class="ask-question_img overflow-hidden"
+      src="/assets/background.svg"
+      alt=""
+    />
+  </div>
+  <form
+    class="bg-white w-75 p-4"
+    [formGroup]="questionForm"
+    #form="ngForm"
+    (ngSubmit)="handleSubmit()"
+  >
+    <div class="form-group">
+      <label for="title" class="font-weight-bolder">
+        Title
+        <small class="d-block font-weight-normal">
+          Be specific and imagine you’re asking a question to another person
+        </small>
+      </label>
+      <input
+        id="title"
+        class="form-control"
+        placeholder="e.g images not loading in angular"
+        type="text"
+        name="title"
+        formControlName="title"
+      />
+    </div>
+    <div class="form-group">
+      <label for="body">
+        <span class="font-weight-bold">Body</span>
+        <small class="d-block">
+          Include all the information someone would need to answer your question
+        </small>
+      </label>
+      <textarea
+        name="body"
+        formControlName="text"
+        class="form-control"
+        id="body"
+        cols="30"
+      ></textarea>
+    </div>
+    <div class="form-group">
+      <label for="tags">
+        <span class="font-weight-bold">Tags</span>
+        <small class="d-block">
+          Add tags to describe what your question is about
+        </small>
+      </label>
+      <mat-chip-list #chipList aria-label="Fruit selection">
+        <mat-chip *ngFor="let tag of tags" (removed)="removeTag(tag)">
+          {{ tag.name }}
+          <button matChipRemove>
+            <mat-icon>cancel</mat-icon>
+          </button>
+        </mat-chip>
+        <input
+          placeholder="Your tags here"
+          class="form-control"
+          [matChipInputFor]="chipList"
+          [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+          (matChipInputTokenEnd)="addTag($event)"
+          name="tags"
+        />
+      </mat-chip-list>
+    </div>
+    <button
+      type="submit"
+      [disabled]="!questionForm.valid"
+      class="btn btn-login btn-block"
+    >
+      Add Question
+    </button>
+  </form>
+</div>

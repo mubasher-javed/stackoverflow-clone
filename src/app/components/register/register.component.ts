@@ -1,8 +1,9 @@
 import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { MatDialog } from '@angular/material/dialog';
 import { UserService } from 'src/app/services/user.service';
+import { LoginComponent } from '../login/login.component';
 
 @Component({
   selector: 'app-register',
@@ -11,7 +12,7 @@ import { UserService } from 'src/app/services/user.service';
 })
 export class RegisterComponent implements OnInit {
   registerForm!: FormGroup;
-  constructor(private userService: UserService, private router: Router) {}
+  constructor(private userService: UserService, private dialog: MatDialog) {}
 
   ngOnInit(): void {
     this.registerForm = new FormGroup({
@@ -21,6 +22,10 @@ export class RegisterComponent implements OnInit {
     });
   }
 
+  openLoginDialog() {
+    this.dialog.closeAll();
+    this.dialog.open(LoginComponent, { width: '30vw' });
+  }
   handleSubmit() {
     // send http request to register user endpoint
     const user = {
@@ -35,9 +40,9 @@ export class RegisterComponent implements OnInit {
         if (res.status === 201) {
           localStorage.setItem('token', token || '');
           this.registerForm.reset();
-          // todo open login modal with code
-          // this.loginBtn.nativeElement.click();
-          // this.router.navigateByUrl('/');
+          // opening login dialog for allowing user to login
+          this.dialog.closeAll();
+          this.dialog.open(LoginComponent, { width: '30vw' });
         }
       },
       (err) => {

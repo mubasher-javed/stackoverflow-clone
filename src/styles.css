@@ -50,7 +50,7 @@ body {
 
 .ellipsis {
   white-space: nowrap;
-  width: 90ch;
+  width: 100ch;
   overflow: hidden;
   text-overflow: ellipsis;
 }

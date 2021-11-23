@@ -1,1 +1,12 @@
-<app-question></app-question>
+<a class="btn btn-register mt-2" routerLink="/question/ask"> Ask Question </a>
+
+<ng-container *ngFor="let q of allQuestions">
+  <app-question
+    [title]="q.title"
+    [tags]="q.tags"
+    [text]="q.text"
+    [views]="q.views"
+    [votes]="q.votes.length"
+    [totalAnswers]="q.answers.length"
+  ></app-question>
+</ng-container>

@@ -1,9 +1,10 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { MatDialog } from '@angular/material/dialog';
 import LoginData from 'src/app/interfaces/login.interface';
 import { UserService } from 'src/app/services/user.service';
+import { RegisterComponent } from '../register/register.component';
 
 @Component({
   selector: 'app-login',
@@ -13,8 +14,12 @@ import { UserService } from 'src/app/services/user.service';
 export class LoginComponent implements OnInit {
   loginForm!: FormGroup;
 
-  constructor(private userService: UserService, private router: Router) {}
+  constructor(private userService: UserService, private dialog: MatDialog) {}
 
+  openRegisterDialog() {
+    this.dialog.closeAll();
+    this.dialog.open(RegisterComponent, { width: '40vw' });
+  }
   ngOnInit(): void {
     this.loginForm = new FormGroup({
       email: new FormControl('', [Validators.required, Validators.email]),
@@ -31,9 +36,7 @@ export class LoginComponent implements OnInit {
       (res: any) => {
         localStorage.setItem('token', res['token']);
         this.loginForm.reset();
-        // close modal with code
-
-        this.router.navigateByUrl('/');
+        this.dialog.closeAll();
       },
       (err) => {
         if (err instanceof HttpErrorResponse) {

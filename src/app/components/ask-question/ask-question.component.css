@@ -1,0 +1,12 @@
+.ask-question__heading {
+  flex-grow: 0;
+  flex-shrink: 0;
+  /* top: 50%; */
+  padding-bottom: 40px;
+}
+
+.ask-question__img {
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  background-position: right bottom;
+}

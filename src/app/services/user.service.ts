@@ -5,6 +5,7 @@ import {
 } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
+import { config } from 'src/config';
 import LoginData from '../interfaces/login.interface';
 import Register from '../interfaces/register.interface';
 
@@ -12,8 +13,6 @@ import Register from '../interfaces/register.interface';
   providedIn: 'root',
 })
 export class UserService {
-  URL = 'http://127.0.0.1:8000/api/';
-
   headers = new HttpHeaders().append(
     'x-auth-token',
     localStorage.getItem('token') || ''
@@ -21,12 +20,11 @@ export class UserService {
   constructor(private http: HttpClient) {}
 
   loginUser(data: LoginData) {
-    return this.http.post(this.URL + 'login', data);
-    // .pipe(catchError(this.handleError));
+    return this.http.post(config.API_URL + 'login', data);
   }
 
   registerUser(data: Register): Observable<any> {
-    return this.http.post(this.URL + 'register', data, {
+    return this.http.post(config.API_URL + 'register', data, {
       observe: 'response' as 'body',
     });
   }
